@@ -63,9 +63,9 @@ namespace BlazorCrud.Server.Controllers
         {
             var response = new ResponseAPI<EmpleadoDTO>();
             var empleadoDTO = new EmpleadoDTO();
-
-            try
-            {
+			
+			try
+			{
                 var dbEmpleado = await _dbContext.Empleados.FirstOrDefaultAsync(d => d.IdEmpleado == id);
 
                 if (dbEmpleado != null)
@@ -74,10 +74,11 @@ namespace BlazorCrud.Server.Controllers
                     empleadoDTO.Correo = dbEmpleado.Correo;
                     empleadoDTO.FechaInicio = dbEmpleado.FechaInicio;
                     empleadoDTO.Activo = dbEmpleado.Activo;
-
                     empleadoDTO.IdEmpleado = dbEmpleado.IdEmpleado;
+                    empleadoDTO.IdDepartamento = dbEmpleado.IdDepartamento;
+					
 
-                    response.EsCorrecto = true;
+					response.EsCorrecto = true;
                     response.Valor = empleadoDTO;
                 }
                 else
@@ -111,7 +112,7 @@ namespace BlazorCrud.Server.Controllers
                     Correo = empleado.Correo,
                     FechaInicio = empleado.FechaInicio,
                     Activo = empleado.Activo,
-                    IdDepartamento = empleado.Departamento.IdDepartamento
+                    IdDepartamento = empleado.IdDepartamento
                 };
 
                 _dbContext.Empleados.Add(dbEmpleado);
@@ -155,7 +156,7 @@ namespace BlazorCrud.Server.Controllers
                     dbEmpleado.Correo = empleado.Correo;
                     dbEmpleado.FechaInicio = empleado.FechaInicio;
                     dbEmpleado.Activo = empleado.Activo;
-                    dbEmpleado.IdDepartamento = empleado.Departamento.IdDepartamento;                    
+                    dbEmpleado.IdDepartamento = empleado.IdDepartamento;                    
                     
                     _dbContext.Empleados.Update(dbEmpleado);
                     await _dbContext.SaveChangesAsync();
@@ -183,7 +184,7 @@ namespace BlazorCrud.Server.Controllers
         [Route("Eliminar/{id}")]
         public async Task<IActionResult> Eliminar(int id)
         {
-            var response = new ResponseAPI<EmpleadoDTO>();
+            var response = new ResponseAPI<int>();
 
             try
             {
