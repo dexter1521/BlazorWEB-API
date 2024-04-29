@@ -1,5 +1,6 @@
 ﻿using BlazorCrud.Shared;
 using System.Net.Http.Json;
+using static System.Net.WebRequestMethods;
 
 namespace BlazorCrud.Client.Services
 {
@@ -12,18 +13,15 @@ namespace BlazorCrud.Client.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<DepartamentoDTO>> Lista()
-        {
-            
-            var result =  await _httpClient.GetFromJsonAsync<ResponseAPI<List<DepartamentoDTO>>>("/api/Departamento/Lista");
-            if (result!.EsCorrecto)
-            {
-                return result.Valor;
-            }
-            else
-            {
-                throw new Exception(result.Mensaje);
-            }
-        }
-    }
+		public async Task<List<DepartamentoDTO>> Lista()
+		{
+			var result = await _httpClient.GetFromJsonAsync<ResponseAPI<List<DepartamentoDTO>>>("api/Departamento/Lista");
+
+			if (result!.EsCorrecto)
+				return result.Valor!;
+			else
+				throw new Exception(result.Mensaje);
+		}
+
+	}
 }

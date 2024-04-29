@@ -19,6 +19,7 @@
 			<th>Nombre</th>
 			<th>Correo</th>
 			<th>Fecha Ingreso</th>
+			<th>Departamento</th>
 			<th>Activo</th>
 			<th>Acciones</th>
 		</tr>
@@ -40,10 +41,11 @@
 					<td>@item.NombreCompleto</td>
 					<td>@item.Correo</td>
 					<td>@item.FechaInicio</td>
+					<td>@item.Departamento!.Nombre</td>
 					<td>@item.Activo</td>
 					<td>
 						<a class="btn btn-primary btn-sm" href="empleado/@item.IdEmpleado"><i class="bi bi-pencil-square"></i></a>
-						<button class="btn btn-danger btn-sm" @onclick="(() => Eliminar(item.IdEmpleado))"><i class="bi bi-pencil-trash"></i></button>
+						<button type="button" class="btn btn-danger btn-sm ms-2" @onclick="(() => Eliminar(item.IdEmpleado))"><i class="bi bi-trash"></i></button>
 					</td>
 
 				</tr>

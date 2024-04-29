@@ -16,15 +16,11 @@ namespace BlazorCrud.Client.Services
         {
 
             var result =  await _httpClient.GetFromJsonAsync<ResponseAPI<List<EmpleadoDTO>>>("/api/Empleado/Lista");
-            if (result!.EsCorrecto)
-            {
-                return result.Valor;
-            }
-            else
-            {
-                throw new Exception(result.Mensaje);
-            }
-        }
+			if (result!.EsCorrecto)
+				return result.Valor!;
+			else
+				throw new Exception(result.Mensaje);
+		}
 
         public async Task<EmpleadoDTO> Buscar(int id)
         {
